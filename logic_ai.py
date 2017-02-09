@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 class SignalManager:
     signals = set()
 
