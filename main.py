@@ -4,6 +4,7 @@ from logic_ai import AI
 print ("loading brain structure..")
 
 brain = class_loader.load(AI)
+steps = 0
 
 print ("start learning")
 
