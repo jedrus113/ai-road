@@ -83,8 +83,11 @@ class AI:
 
     def start(self, number):
         binary = bin(number)[2:]
-        conections = OrderedDict() # cala przednia sciana przyjmuje
 
         for n, neuron in enumerate(self.neurons_grid[0]):
-            signal = Signal(neuron)
+            if len(binary) > n and binary[n] == '1':
+                power = 1.0
+            else:
+                power = 0.5
+            signal = Signal(neuron, power)
             self.sm.add(signal)
