@@ -11,8 +11,10 @@ def step_fun(forward, hist):
     global steps
     steps -= forward
     if steps < 0:
+        print "Dead"
         pass # punishment shall be here
     else:
+        print "lucky step"
         pass # prize
 
 ai.setup(step_fun)
