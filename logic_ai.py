@@ -63,7 +63,6 @@ class AI:
                     for old_neuron in self.neurons_grid[len(self.neurons_grid)-1]:
                         old_neuron.add_connection(neuron)
             self.neurons_grid.append(neurons_line)
-        pass
 
     def setup(self, *funs):
         for fun in funs:
