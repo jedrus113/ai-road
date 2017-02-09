@@ -7,7 +7,7 @@ ai = class_loader.load(AI)
 steps = 0.0
 
 print ("start learning")
-def step_fun(forward, hist):
+def step_fun(forward):
     global steps
     steps -= forward
     if steps < 0:
