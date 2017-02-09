@@ -44,6 +44,7 @@ class Neuron:
     enter_barier = 0.01
     connected_to = {} # {Neuron: (enchant,delay)}
 
+
     def add_connection(self, to, enchant=0.95, delay=5):
         self.connected_to[to] = (enchant, delay)
 
@@ -58,11 +59,26 @@ class Output(Neuron):
 class AI:
     dimensions = [10,10]
     neurons_grid = []
-    input_neurons = []
 
-    def __init__(self, number=0):
+    def __init__(self, *funs):
+        for y in range(0, self.dimensions[0]):
+            neurons_line = []
+            for x in range(0, self.dimensions[1]):
+                neurons_line.append(Neuron())
+            self.neurons_grid.append(neurons_line)
+
+        for line_nr in range(0, self.dimensions[0]-1):
+            for neuron in self.neurons_grid[line_nr]:
+                for next_neuron in self.neurons_grid[line_nr+1]:
+                    neuron.add_connection(next_neuron)
+
+        for fun in funs:
+            last_neuron = Output(fun)
+            for neuron in self.neurons_grid[len(self.neurons_grid)-1]:
+                neuron.add_connection(last_neuron)
+
+
+    def start(self, number):
         binary = bin(number)[2:]
         conections = OrderedDict() # cala przednia sciana przyjmuje
-
-
 
