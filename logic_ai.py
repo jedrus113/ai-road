@@ -63,7 +63,7 @@ class AI:
     sm = SignalManager()
     neurons_grid = []
 
-    def __init__(self, *funs, size=[10,10]):
+    def __init__(self, size):
         for y in range(0, size[0]):
             neurons_line = []
             for x in range(0, size[1]):
@@ -75,11 +75,11 @@ class AI:
                 for next_neuron in self.neurons_grid[line_nr+1]:
                     neuron.add_connection(next_neuron)
 
+    def setup(self, *funs):
         for fun in funs:
             last_neuron = Output(fun)
             for neuron in self.neurons_grid[len(self.neurons_grid)-1]:
                 neuron.add_connection(last_neuron)
-
 
     def start(self, number):
         binary = bin(number)[2:] #binary number from int
