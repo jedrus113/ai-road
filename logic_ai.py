@@ -1,58 +1,50 @@
 from collections import OrderedDict
 
 class SignalManager:
-    signals = []
+    signals = set()
 
-    def add(self, signal):
-        self.signals.append(signal)
+    @staticmethod
+    def add(signal):
+        SignalManager.signals.add(signal)
 
-    def pulse(self):
-        old_signals = self.signals
-        self.signals = []
+    @staticmethod
+    def pulse():
+        old_signals = SignalManager.signals
+        SignalManager.signals = set()
         for sig in old_signals:
-            self.signals.extend(sig.pulse())
+            sig.pulse())
 
         if not self.signals:
             return False
         return True
 
-class Signal:
-    def __init__(self, neuron, power=1.0, history=[]):
-        self.neuron = neuron #sign is here
-        self.power = power
-        self.history=history
-        self.history.append(self.neuron)
-
-    def pulse(self):
-        if isinstance(self.neuron, Output):
-            self.neuron.power(self.power, self.history)
-            return []
-        else:
-            signals = []
-            for nextneuron, enchant in self.neuron.connected_to.items():
-                power = self.power * enchant
-                if nextneuron.enter_barier < power:
-                    signal = Signal(nextneuron, power, self.history)
-                    signals.append(signal)
-            return signals
-
-
 class Neuron:
     sign = None
     enter_barier = 0.01
     connected_to = {} # {Neuron: enchant}
+    power = 0
 
+    def sum_power(self, power):
+        self.power += power
 
     def add_connection(self, to, enchant=0.95):
         self.connected_to[to] = enchant
+
+    def pulse(self):
+        for nextneuron, enchant in self.connected_to.items():
+            power = self.power * enchant
+            if nextneuron.enter_barier < power:
+                nextneuron.sum_power(power)
+                SignalManager.add(nextneuron)
+        return signals
 
 
 class Output(Neuron):
     def __init__(self, fun):
         self.fun = fun # function taking arguments: Float Power, and Array SignalHistory
 
-    def power(self, pow, history):
-        self.fun(pow, history)
+    def pulse(self):
+        self.fun(self.power)
 
 class AI:
     sm = SignalManager()
@@ -84,8 +76,8 @@ class AI:
                 power = 1.0
             else:
                 power = 0.5
-            signal = Signal(neuron, power)
-            self.sm.add(signal)
+            neuron.sum_power(power)
+            self.sm.add(neuron)
 
     def step(self):
         return self.sm.pulse()
