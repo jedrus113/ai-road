@@ -3,6 +3,9 @@ from collections import OrderedDict
 class SignalManager:
     signals = []
 
+    def add(self, signal):
+        self.signals.append(signal)
+
     def pulse(self):
         old_signals = self.signals
         self.signals = []
@@ -14,7 +17,7 @@ class SignalManager:
         return True
 
 class Signal:
-    def __init__(self, neuron, waittime=0, power=1, history=[]):
+    def __init__(self, neuron, power=1, waittime=0, history=[]):
         self.neuron = neuron #sign is here
         self.waittime = waittime #time from sinapse
         self.power = power
@@ -34,7 +37,7 @@ class Signal:
                 enchant, delay = synapse
                 power = self.power * enchant
                 if nextneuron.enter_barier < power:
-                    signal = Signal(nextneuron, delay, power, self.history)
+                    signal = Signal(nextneuron, power, delay, self.history)
                     signals.append(signal)
             return signals
 
@@ -57,6 +60,7 @@ class Output(Neuron):
         self.fun(pow)
 
 class AI:
+    sm = SignalManager()
     neurons_grid = []
 
     def __init__(self, *funs, size=[10,10]):
@@ -81,4 +85,6 @@ class AI:
         binary = bin(number)[2:]
         conections = OrderedDict() # cala przednia sciana przyjmuje
 
-        for x in range(0, neurons_grid)
+        for n, neuron in enumerate(self.neurons_grid[0]):
+            signal = Signal(neuron)
+            self.sm.add(signal)
