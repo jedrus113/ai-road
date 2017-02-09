@@ -21,7 +21,7 @@ class Neuron:
         self.sign = None
         self.enter_barier = 0.01
         self.connected_to = {}  # {Neuron: enchant}
-        self.power = 0
+        self.power = 0.0
 
     def sum_power(self, power):
         if self.power < 1.0:
@@ -39,11 +39,12 @@ class Neuron:
             if nextneuron.enter_barier < power:
                 nextneuron.sum_power(power)
                 SignalManager.add(nextneuron)
-        self.power = 0
+        self.power = 0.0
 
 
 class Output(Neuron):
     def __init__(self, fun):
+        super(Output, self).__init__()
         self.fun = fun # function taking arguments: Float Power, and Array SignalHistory
 
     def pulse(self):
