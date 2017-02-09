@@ -23,9 +23,13 @@ class Neuron:
     power = 0
 
     def sum_power(self, power):
-        self.power += power
+        if self.power < 1.0:
+            if self.power + power > 1.0:
+                self.power = 1.0
+            else:
+                self.power += power
 
-    def add_connection(self, to, enchant=0.95):
+    def add_connection(self, to, enchant=0.90):
         self.connected_to[to] = enchant
 
     def pulse(self):
@@ -34,6 +38,7 @@ class Neuron:
             if nextneuron.enter_barier < power:
                 nextneuron.sum_power(power)
                 SignalManager.add(nextneuron)
+        self.power = 0
 
 
 class Output(Neuron):
