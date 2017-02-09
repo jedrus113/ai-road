@@ -17,10 +17,11 @@ class SignalManager:
         return True
 
 class Neuron:
-    sign = None
-    enter_barier = 0.01
-    connected_to = {} # {Neuron: enchant}
-    power = 0
+    def __init__(self):
+        self.sign = None
+        self.enter_barier = 0.01
+        self.connected_to = {}  # {Neuron: enchant}
+        self.power = 0
 
     def sum_power(self, power):
         if self.power < 1.0:
@@ -56,13 +57,13 @@ class AI:
         for y in range(0, size[0]):
             neurons_line = []
             for x in range(0, size[1]):
-                neurons_line.append(Neuron())
+                neuron = Neuron()
+                neurons_line.append(neuron)
+                if y:
+                    for old_neuron in self.neurons_grid[len(self.neurons_grid)-1]:
+                        old_neuron.add_connection(neuron)
             self.neurons_grid.append(neurons_line)
-
-        for line_nr in range(0, size[0]-1):
-            for neuron in self.neurons_grid[line_nr]:
-                for next_neuron in self.neurons_grid[line_nr+1]:
-                    neuron.add_connection(next_neuron)
+        pass
 
     def setup(self, *funs):
         for fun in funs:
