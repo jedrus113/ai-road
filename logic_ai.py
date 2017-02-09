@@ -1,4 +1,4 @@
-class SignalManager:
+class SignalManager(object):
     signals = set()
 
     @staticmethod
@@ -16,7 +16,7 @@ class SignalManager:
             return False
         return True
 
-class Neuron:
+class Neuron(object):
     def __init__(self):
         self.sign = None
         self.enter_barier = 0.01
@@ -50,7 +50,7 @@ class Output(Neuron):
     def pulse(self):
         self.fun(self.power)
 
-class AI:
+class AI(object):
     sm = SignalManager()
     neurons_grid = []
 
