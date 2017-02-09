@@ -51,8 +51,8 @@ class Output(Neuron):
     def __init__(self, fun):
         self.fun = fun # function taking arguments: Float Power, and Array SignalHistory
 
-    def power(self, pow):
-        self.fun(pow)
+    def power(self, pow, history):
+        self.fun(pow, history)
 
 class AI:
     sm = SignalManager()
