@@ -57,17 +57,16 @@ class Output(Neuron):
         self.fun(pow)
 
 class AI:
-    dimensions = [10,10]
     neurons_grid = []
 
-    def __init__(self, *funs):
-        for y in range(0, self.dimensions[0]):
+    def __init__(self, *funs, size=[10,10]):
+        for y in range(0, size[0]):
             neurons_line = []
-            for x in range(0, self.dimensions[1]):
+            for x in range(0, size[1]):
                 neurons_line.append(Neuron())
             self.neurons_grid.append(neurons_line)
 
-        for line_nr in range(0, self.dimensions[0]-1):
+        for line_nr in range(0, size[0]-1):
             for neuron in self.neurons_grid[line_nr]:
                 for next_neuron in self.neurons_grid[line_nr+1]:
                     neuron.add_connection(next_neuron)
@@ -82,3 +81,4 @@ class AI:
         binary = bin(number)[2:]
         conections = OrderedDict() # cala przednia sciana przyjmuje
 
+        for x in range(0, neurons_grid)
