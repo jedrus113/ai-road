@@ -12,10 +12,10 @@ def step_fun(forward):
     steps -= forward
     if steps < 0:
         print "Dead"
-        pass # punishment shall be here
+        pass #TODO: punishment shall be here
     else:
         print "lucky step"
-        pass # prize
+        pass #TODO: prize
 
 ai.setup(step_fun)
 ai.start(0)
