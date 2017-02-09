@@ -29,7 +29,7 @@ class Signal:
             self.waittime -= 1
             return [self]
         elif isinstance(self.neuron, Output):
-            self.neuron.power(self.power)
+            self.neuron.power(self.power, self.history)
             return []
         else:
             signals = []
@@ -54,7 +54,7 @@ class Neuron:
 
 class Output(Neuron):
     def __init__(self, fun):
-        self.fun = fun # function taking one float argument, that is power
+        self.fun = fun # function taking arguments: Float Power, and Array SignalHistory
 
     def power(self, pow):
         self.fun(pow)
