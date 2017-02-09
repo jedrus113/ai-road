@@ -63,7 +63,7 @@ class AI:
     sm = SignalManager()
     neurons_grid = []
 
-    def __init__(self, size):
+    def __init__(self, size=[10,10]):
         for y in range(0, size[0]):
             neurons_line = []
             for x in range(0, size[1]):
