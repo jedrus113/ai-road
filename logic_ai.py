@@ -17,7 +17,7 @@ class SignalManager:
         return True
 
 class Signal:
-    def __init__(self, neuron, power=1, waittime=0, history=[]):
+    def __init__(self, neuron, power=1.0, waittime=0, history=[]):
         self.neuron = neuron #sign is here
         self.waittime = waittime #time from sinapse
         self.power = power
@@ -82,7 +82,7 @@ class AI:
 
 
     def start(self, number):
-        binary = bin(number)[2:]
+        binary = bin(number)[2:] #binary number from int
 
         for n, neuron in enumerate(self.neurons_grid[0]):
             if len(binary) > n and binary[n] == '1':
