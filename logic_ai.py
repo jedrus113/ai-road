@@ -86,3 +86,6 @@ class AI:
                 power = 0.5
             signal = Signal(neuron, power)
             self.sm.add(signal)
+
+    def step(self):
+        return self.sm.pulse()

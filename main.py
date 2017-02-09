@@ -3,10 +3,22 @@ from logic_ai import AI
 
 print ("loading brain structure..")
 
-brain = class_loader.load(AI)
-steps = 0
+ai = class_loader.load(AI)
+steps = 0.0
 
 print ("start learning")
+def step_fun(forward, hist):
+    global steps
+    steps -= forward
+    if steps < 0:
+        pass # punishment shall be here
+    else:
+        pass # prize
 
+ai.setup(step_fun)
+ai.start(0)
 
-class_loader.save(brain)
+while ai.step():
+    pass
+
+class_loader.save(ai)
