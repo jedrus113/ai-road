@@ -10,9 +10,9 @@ class SignalManager:
         old_signals = SignalManager.signals
         SignalManager.signals = set()
         for sig in old_signals:
-            sig.pulse())
+            sig.pulse()
 
-        if not self.signals:
+        if not SignalManager.signals:
             return False
         return True
 
@@ -34,7 +34,6 @@ class Neuron:
             if nextneuron.enter_barier < power:
                 nextneuron.sum_power(power)
                 SignalManager.add(nextneuron)
-        return signals
 
 
 class Output(Neuron):
